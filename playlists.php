@@ -15,17 +15,13 @@
 <table>
   <thead>
     <tr>
-      <th>ID</th>
       <th>Playlist Name</th>
     </tr>
   </thead>
   <tbody>
     <?php foreach($playlists as $playlist) : ?>
     <tr>
-      <td><?php echo $playlist->id ?></td>
-    </tr>
-    <tr>
-      <td><?php echo $playlist->name ?></td>
+      <td><a href=<?php echo './tracks.php?playlist=' . $playlist->id; ?>><?php echo $playlist->name; ?></a></td>
     </tr>
     <?php endforeach; ?>
   </tbody>
