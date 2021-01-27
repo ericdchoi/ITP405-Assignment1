@@ -7,9 +7,26 @@
     }
     
     $pdo = new PDO($_ENV['PDO_CONNECTION_STRING']);
-    $sql = "SELECT * FROM invoices";
+    $sql = "SELECT * FROM playlists";
     $statement = $pdo->prepare($sql);
     $statement->execute();
-    $invoices = $statement->fetchAll(PDO::FETCH_OBJ);
-    var_dump($invoices);
+    $playlists = $statement->fetchAll(PDO::FETCH_OBJ);
 ?>
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Playlist Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach($playlists as $playlist) : ?>
+    <tr>
+      <td><?php echo $playlist->id ?></td>
+    </tr>
+    <tr>
+      <td><?php echo $playlist->name ?></td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
