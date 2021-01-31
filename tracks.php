@@ -10,13 +10,15 @@
     }
     
     $pdo = new PDO($_ENV['PDO_CONNECTION_STRING']);
-    $sql = "SELECT tracks.name, albums.title, tracks.composer, tracks.unit_price, genres.name AS genre_name FROM tracks 
+    $sql = "SELECT tracks.name, albums.title, artists.name AS artist, tracks.unit_price, genres.name AS genre_name FROM tracks 
     INNER JOIN playlist_track
     ON playlist_track.playlist_id=" . $_GET["playlist"] . " AND tracks.id=playlist_track.track_id
     INNER JOIN genres
     ON tracks.genre_id=genres.id
     INNER JOIN albums
-    ON albums.id=tracks.album_id";
+    ON albums.id=tracks.album_id
+    INNER JOIN artists
+    ON albums.artist_id=artists.id";
     $statement = $pdo->prepare($sql);
     $statement->execute();
     $tracks = $statement->fetchAll(PDO::FETCH_OBJ);
@@ -48,7 +50,7 @@
     <tr>
       <td> <?php echo $track->name ?></td>
       <td> <?php echo $track->title ?></td>
-      <td> <?php echo $track->composer ?></td>
+      <td> <?php echo $track->artist ?></td>
       <td> <?php echo $track->unit_price ?></td>
       <td> <?php echo $track->genre_name ?></td>
     </tr>
